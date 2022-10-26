@@ -4,10 +4,10 @@ import pandas as pd
 
 
 def search_service(keyw, filter_data):
-    url = "https://www.rottentomatoes.com/search?search=welcome"
+    url = f"https://www.rottentomatoes.com/search?search={keyw}"
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
-    scrap_data_movie = soup.find('search-page-result', type='movie').find('ul').find_all('search-page-media-row')
+    scrap_data_movie = soup.find('search-page-result', type=f'{filter_data["type"]}').find('ul').find_all('search-page-media-row')
     movie_name = []
     year = []
     cast = []
@@ -28,6 +28,7 @@ def search_service(keyw, filter_data):
         movie_name.append(p1)
 
     # preprocess cast
+    print(cast)
     f_cast = list()
     for entry in cast:
         f_cast.append(str(entry).split(","))
@@ -43,5 +44,6 @@ def search_service(keyw, filter_data):
     data['mlink'] = movie_link
     data.to_csv('rotten_tomatoes_searchurl.csv', index=False)
     js = data.to_json(orient="records")
+    print(js)
     return js
 
