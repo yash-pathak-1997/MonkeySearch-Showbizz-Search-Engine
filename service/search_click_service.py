@@ -1,46 +1,49 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+import json
 
 
 def search_click_service(url):
+    url = "https://www.rottentomatoes.com/m/abcd_any_body_can_dance"
     page = requests.get(url)
+    print(page)
     soup = BeautifulSoup(page.text, 'html.parser')
-    scrap_data_movie = soup.find('search-page-result', type='movie').find('ul').find_all('search-page-media-row')
-    movie_name = []
-    year = []
-    cast = []
-    image = []
-    movie_link = []
-    for s in scrap_data_movie:
-        y = s.get('releaseyear')  # release year
-        year.append(y)
-        c = s.get('cast')  # cast of movie
-        cast.append(c)
-        ds = s.find_all('a', class_="unset")
-        p0 = ds[0].find('img')  # image tag of movie
-        image.append(p0.get('src'))
-        p1 = ds[1].text.strip()  # name of movie
-        mlink = ds[1].get('href')
-        movie_link.append(mlink)
-        movie_name.append(p1)
-
-    # preprocess cast
-    print(cast)
-    f_cast = list()
-    for entry in cast:
-        f_cast.append(str(entry).split(","))
-
-    print(type(image))
+    # print(soup.prettify())
+    scrap_data_movie = soup.find('div', id='mainColumn')
+    # .find('ul').find_all('search-page-item-row')
+    # print(scrap_data_movie)
+    list = dict()
+    image = scrap_data_movie.find('div', class_='thumbnail-scoreboard-wrap').find('div',
+                                                                                  class_='movie-thumbnail-wrap').div.img
+    image = image.get('src')  # poster link
+    list['poster'] = image
+    header = scrap_data_movie.find('score-board', class_='scoreboard')
+    title = header.find('h1', class_="scoreboard__title").text  # title of movie
+    # print(header)
+    info = header.find('p', class_="scoreboard__info").text.split(',')
+    year = info[0]
+    zoner = info[1]
+    time = info[2]
+    list['year'] = year
+    list['zoner'] = zoner
+    list['time'] = time
+    print(title, year, zoner, time)
     print(image)
 
-    data = pd.DataFrame()
-    data['mname'] = movie_name
-    data['year'] = year
-    data['cast'] = f_cast
-    data['image'] = image
-    data['mlink'] = movie_link
-    data.to_csv('rotten_tomatoes_searchurl.csv', index=False)
-    js = data.to_json(orient="records")
-    print(js)
-    return js
+    movie_info = scrap_data_movie.find('div', id='movieSynopsis').text.strip()
+    print(movie_info)  # about movie
+    list['info'] = movie_info
+    meta_data = scrap_data_movie.find('ul', class_='info').find_all('li')
+
+    for r in meta_data:
+        key = r.find('div', class_='meta-label').text.strip()
+        value = r.find('div', class_='meta-value').text.strip().replace("\n", '').replace(" ", '')
+        list[key] = value
+        # print(key,value)
+    # print(list)
+    print(json.dumps(list))
+
+
+
+
