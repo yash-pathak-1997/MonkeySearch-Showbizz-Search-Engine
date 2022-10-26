@@ -13,6 +13,7 @@ def search_service(keyw, filter_data):
     cast = []
     image = []
     movie_link = []
+
     for s in scrap_data_movie:
         y = s.get('releaseyear')  # release year
         year.append(y)
@@ -45,3 +46,4 @@ def search_service(keyw, filter_data):
     js = data.to_json(orient="records")
     print(js)
     return js
+
