@@ -42,7 +42,8 @@ def search_click_service(url):
         list[key] = value
         # print(key,value)
     # print(list)
-    print(json.dumps(list))
+    return json.loads(json.dumps(list))
+
 
 
 
