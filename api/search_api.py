@@ -9,9 +9,9 @@ from service.search_service import search_service
 def search_api():
     keyw = request.args.get("keyword")
     filter_data = request.get_json()
-    # try:
-    res = search_service(keyw, filter_data)
-    # except:
-    #     print("exception")
-    #     res = {}
+    try:
+        res = search_service(keyw, filter_data)
+    except:
+        print("exception")
+        res = {}
     return res
