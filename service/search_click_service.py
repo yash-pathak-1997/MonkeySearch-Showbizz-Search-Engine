@@ -26,6 +26,7 @@ def search_click_service(url):
     year = info[0]
     zoner = info[1]
     time = info[2]
+    list['title']=title
     list['year'] = year
     list['zoner'] = zoner
     list['time'] = time
@@ -40,12 +41,10 @@ def search_click_service(url):
     for r in meta_data:
         key = r.find('div', class_='meta-label').text.strip()
         value = r.find('div', class_='meta-value').text.strip().replace("\n", '').replace(" ", '')
-        list[key] = value
+        list[key.replace(":","").replace(" ","")] = value
         # print(key,value)
     # print(list)
     return json.loads(json.dumps(list))
-
-
 
 
 
