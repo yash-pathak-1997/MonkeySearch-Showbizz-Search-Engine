@@ -3,6 +3,10 @@ from flask import request
 from api import app
 from service.search_click_service import search_click_service
 
+#Request body
+#{
+#    "url":"https://www.rottentomatoes.com/m/abcd_any_body_can_dance"
+#}
 
 @app.route("/api/search_click", methods=['POST'])
 @cross_origin()

@@ -2,7 +2,14 @@ from flask import request
 from flask_cors import cross_origin
 from api import app
 from service.coming_soon_service import coming_soon_service
+'''
+{
 
+    "region": "IN",
+
+    "type" : "MOVIE"
+
+}'''
 
 @app.route("/api/comingSoon", methods=['POST'])
 @cross_origin()
