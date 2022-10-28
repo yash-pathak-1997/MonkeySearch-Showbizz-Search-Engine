@@ -2,10 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
-url = "https://www.imdb.com/calendar?ref_=hm_cs_sm"
-
 
 def coming_soon_service(filter_data):
+    region = filter_data["region"]
+    type_o = filter_data["type"]
+    url = f"https://www.imdb.com/calendar/?ref_=rlm&region={region}&type={type_o}"
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
     articles = soup.find('section', class_='ipc-page-section ipc-page-section--base').find_all('article',
@@ -33,6 +34,5 @@ def coming_soon_service(filter_data):
             m_for_date.append(temp)
 
         res[date] = m_for_date
-        print(res)
 
     return res
