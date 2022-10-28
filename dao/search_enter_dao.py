@@ -1,7 +1,7 @@
 import pymongo
 
 
-def search_click_dao(js):
+def search_enter_dao(js):
     pass
 
 

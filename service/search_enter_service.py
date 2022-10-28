@@ -2,13 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import json
-from dao.search_dao import search_dao
+from dao.search_enter_dao import search_enter_dao
 
 list_type = ['movie', 'tv']
 list_type2 = ['celebrity', 'franchise']
 
 
-def search_service(keyw, filter_data):
+def search_enter_service(keyw, filter_data):
     result_data = pd.DataFrame()
     if f'{filter_data["type"]}' == '':
         for i in list_type:

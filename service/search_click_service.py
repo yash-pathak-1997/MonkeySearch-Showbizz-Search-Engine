@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import json
+from dao.search_click_dao import search_click_dao
 
 
 def search_click_service(url):
