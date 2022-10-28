@@ -11,5 +11,5 @@ def search_enter_api():
     keyw = request.args.get("keyword")
     filter_data = request.get_json()
     res = search_enter_service(keyw, filter_data)
-    res = json.loads(res)
-    return jsonify(res)
+    print(res)
+    return res

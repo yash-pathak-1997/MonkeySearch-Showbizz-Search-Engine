@@ -26,6 +26,7 @@ def search_click_service(url):
     year = info[0]
     zoner = info[1]
     time = info[2]
+    list['title']=title
     list['year'] = year
     list['zoner'] = zoner
     list['time'] = time

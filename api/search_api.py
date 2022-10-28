@@ -11,6 +11,7 @@ def search_api():
     filter_data = request.get_json()
     try:
         res = search_service(keyw, filter_data)
+        print(res)
     except:
         print("exception")
         res = {}
