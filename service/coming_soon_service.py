@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
+import urllib.request
+import re
+import lxml
+from lxml import etree
 
 
 def coming_soon_service(filter_data):
@@ -32,6 +36,15 @@ def coming_soon_service(filter_data):
             temp["mname"] = movie_name
             temp["imagelink"] = link
             temp["date"] = date
+
+            search_keyword = str(movie_name).replace(" ","") + "Trailer"
+            search_song_url = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + search_keyword)
+            video_ids = re.findall(r"watch\?v=(\S{11})", search_song_url.read().decode())
+            url = str("https://www.youtube.com/watch?v=" + video_ids[0])
+            youtube = etree.HTML(urllib.request.urlopen(url).read())
+            video_title = youtube.xpath("/html/head/title")
+
+            temp["trailer_link"] = url
             movies_list.append(temp)
 
         res["movies"] = movies_list
