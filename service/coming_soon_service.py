@@ -3,8 +3,6 @@ import requests
 import pandas as pd
 import urllib.request
 import re
-import lxml
-from lxml import etree
 
 
 def coming_soon_service(filter_data):
@@ -17,6 +15,7 @@ def coming_soon_service(filter_data):
                                                                                                class_="sc-f56042d2-1 kgXUZB")
     res = {}
     movies_list = []
+    i = 0
     for u in articles:
         date_html = u.find('div', class_="ipc-title ipc-title--title ipc-title--base ipc-title--on-textPrimary")
         date = date_html.find('hgroup').find('h3', class_="ipc-title__text").text
@@ -28,7 +27,8 @@ def coming_soon_service(filter_data):
 
         for movie in movie_list:
             temp = {}
-            movie_name = movie.find('div', class_="ipc-metadata-list-summary-item__tc").find('a', class_="ipc-metadata-list-summary-item__t").text
+            movie_name = movie.find('div', class_="ipc-metadata-list-summary-item__tc").find('a',
+                                                                                             class_="ipc-metadata-list-summary-item__t").text
             if movie.find('img', class_="ipc-image") is None:
                 link = "NA"
             else:
@@ -37,14 +37,18 @@ def coming_soon_service(filter_data):
             temp["imagelink"] = link
             temp["date"] = date
 
-            search_keyword = str(movie_name).replace(" ","") + "Trailer"
-            search_song_url = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + search_keyword)
-            video_ids = re.findall(r"watch\?v=(\S{11})", search_song_url.read().decode())
-            url = str("https://www.youtube.com/watch?v=" + video_ids[0])
-            youtube = etree.HTML(urllib.request.urlopen(url).read())
-            video_title = youtube.xpath("/html/head/title")
+            if i < 5:
+                search_keyword = str(movie_name).replace(" ", "") + "Trailer"
+                search_song_url = urllib.request.urlopen(
+                    "https://www.youtube.com/results?search_query=" + search_keyword)
+                video_ids = re.findall(r"watch\?v=(\S{11})", search_song_url.read().decode())
+                url = str("https://www.youtube.com/watch?v=" + video_ids[0])
 
-            temp["trailer_link"] = url
+                temp["trailer_link"] = url
+            else:
+                temp["trailer_link"] = "NA"
+
+            i = i+1
             movies_list.append(temp)
 
         res["movies"] = movies_list
