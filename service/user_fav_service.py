@@ -9,17 +9,24 @@ rest_uri="&sort=user_rating,desc&title_type=feature&num_votes=25000,"
 link_base="https://www.imdb.com"
 
 
-def user_fav(user_id):
+def user_fav_service(user_id):
     # fetch fav genre of userid from dataset=genre
     genre=user_fav_dao(user_id)
-    print(genre,"hello")
+    # print(list(genre))
+    genre=list(genre)[0]['_id']
+
+    # print(list(genre),"hello")
     # print("find query",list(genre))
-    genre="drama"
+    # genre="drama"
     # scrap data from https://www.imdb.com/search/title/?genres=drama&sort=user_rating,desc&title_type=feature&num_votes=25000,
     try:
         url=base_uri+genre+rest_uri
+        # print(url)
+        # url="https://www.imdb.com/search/title/?genres=Action,Drama,History,War&sort=user_rating,desc&title_type=feature&num_votes=25000,"
+        # url="https://www.imdb.com/search/title/?genres=Action,Drama,History,War&sort=user_rating,desc&title_type=feature&num_votes=25000,"
         print(url)
         page=requests.get(url)
+
         # print(page)
         soup=BeautifulSoup(page.text,'html.parser')
         scrap_table=soup.find('div',class_="article").find('div',class_="lister-list").find_all('div',class_="lister-item mode-advanced")
