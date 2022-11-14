@@ -3,6 +3,8 @@ import requests
 import json
 from dao.search_click_dao import search_click_dao
 
+default_poster = "/assets/pizza-pie/images/poster_default.c8c896e70c3.gif"
+
 
 def search_click_service(url, user_id):
     page = requests.get(url)
@@ -11,7 +13,10 @@ def search_click_service(url, user_id):
     list = dict()
     image = scrap_data_movie.find('div', class_='thumbnail-scoreboard-wrap').find('div',
                                                                                   class_='movie-thumbnail-wrap').div.img
+    print(image)
     image = image.get('src')  # poster link
+    if ".gif" in image:
+        image = 'NA'
     list['poster'] = image
     header = scrap_data_movie.find('score-board', class_='scoreboard')
     title = header.find('h1', class_="scoreboard__title").text  # title of movie

@@ -5,6 +5,7 @@ import re
 import json
 
 base_uri = "https://www.imdb.com/chart/top/"
+link_base="https://www.imdb.com"
 
 
 def top_250_service(sort_by, order):
@@ -35,7 +36,7 @@ def top_250_service(sort_by, order):
         for link in scrap_movies:
             p = s.find('a', attrs={'href': re.compile("^/title/")})
             i = s.find('img')
-            link_title.append(p.get('href'))
+            link_title.append(link_base+p.get('href'))
             img_src.append(i.get('src'))
 
         data['alink'] = link_title
