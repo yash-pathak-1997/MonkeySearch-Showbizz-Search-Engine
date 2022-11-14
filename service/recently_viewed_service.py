@@ -1,3 +1,5 @@
+import json
+
 from dao.recently_viewed_dao import recently_viewed_dao
 
 
