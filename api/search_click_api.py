@@ -8,6 +8,5 @@ from service.search_click_service import search_click_service
 @cross_origin()
 def search_click_api():
     payld = request.get_json()
-
     res = search_click_service(payld["url"], payld["user_id"])
     return res
