@@ -35,20 +35,26 @@ def user_fav_service(user_id):
         img_src = []
         movies = []
         links = []
-        years = []
+        genres = []
+        print(genre,"befor adding")
+        c=0;
         for s in scrap_table:
             main=s.find('div', class_='lister-item-image')
             img_src.append(main.find('img').get('loadlate'))
             movies.append(main.find('img').get('alt'))
             # print(main.find('a', attrs={'href': re.compile("^/title/")}).get('href'))
             links.append(link_base+main.find('a', attrs={'href': re.compile("^/title/")}).get('href'))
-
+            genres.append(genre)
+            c=c+1
+            if c==20:
+                break
             # movies.append(s.find('td', class_='titleColumn').a.text)
             # rates.append(s.find('td', class_='ratingColumn').text.replace('\n', ""))
             # years.append(s.find('span', class_='secondaryInfo').text.replace('(', "").replace(')', ''))
         # print(links)
         # print(movies)
         data = pd.DataFrame()
+        data['genres']=genres
         data['movies'] = movies
         data['alink'] = links
         data['imgsrc'] = img_src
@@ -63,7 +69,7 @@ def user_fav_service(user_id):
         #     link_title.append(p.get('href'))
         #     img_src.append(i.get('src'))
         #
-
+        # data=data.head(20)
         return json.loads(data.to_json(orient="records"))
     except Exception as e:
         print(e)
