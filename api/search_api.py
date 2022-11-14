@@ -19,3 +19,4 @@ def search_api():
         print("Exception - " + str(e))
         res = {}
     return res
+    
