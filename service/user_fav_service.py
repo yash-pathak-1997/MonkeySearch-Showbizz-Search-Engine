@@ -9,7 +9,7 @@ rest_uri="&sort=user_rating,desc&title_type=feature&num_votes=25000,"
 link_base="https://www.imdb.com"
 
 
-def user_fav(user_id):
+def user_fav_service(user_id):
     # fetch fav genre of userid from dataset=genre
     genre=user_fav_dao(user_id)
     print(genre,"hello")
