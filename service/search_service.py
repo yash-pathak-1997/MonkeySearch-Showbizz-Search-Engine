@@ -16,7 +16,7 @@ def search_service(keyw, filter_data):
             result_data = pd.concat([result_data, data.head(3)], ignore_index=True)
     else:
         data = search_data(keyw, f'{filter_data["type"]}')
-        # print("search_services")
+        print("search_services")
         # print(result_data)
         result_data = data
         # print(result_data)
@@ -91,6 +91,7 @@ def search_service(keyw, filter_data):
 def search_data(keyw, category):
     url = f"{base_uri}{keyw}"
     print("url is", url)
+    print("category is",category)
     movie_name = []
     year = []
     cast = []
@@ -101,7 +102,7 @@ def search_data(keyw, category):
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
     scrap_data_movie = soup.find('search-page-result', type=f'{category}')
-    print("scrapdata", scrap_data_movie)
+    # print("scrapdata", scrap_data_movie)
     if scrap_data_movie is not None:
         if f'{category}' not in list_type2:
             scrap_data_movie = scrap_data_movie.find('ul').find_all('search-page-media-row')

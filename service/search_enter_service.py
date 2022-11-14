@@ -17,7 +17,7 @@ def search_enter_service(keyw, filter_data):
             print(result_json)
     else:
         data = search_data(keyw, f'{filter_data["type"]}')
-        result_json[f'{filter_data["type"]}'] = data
+        result_json[f'{filter_data["type"]}'] = data.to_dict(orient="records")
     print(len(result_data))
     return result_json
 
