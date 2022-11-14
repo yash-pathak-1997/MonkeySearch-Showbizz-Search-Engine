@@ -3,10 +3,6 @@ from flask import request
 from api import app
 from service.search_service import search_service
 
-#{
-#    "type":""
-#}
-
 
 @app.route("/api/search", methods=['POST'])
 @cross_origin()

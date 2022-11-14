@@ -9,7 +9,6 @@ from service.top_250 import top_250
 @cross_origin()
 def top_250_api():
     sortby = request.args.get("sort")
-    order=request.args.get("order")
-    res = top_250(sortby,order)
-    # print(res)
+    order = request.args.get("order")
+    res = top_250(sortby, order)
     return res
