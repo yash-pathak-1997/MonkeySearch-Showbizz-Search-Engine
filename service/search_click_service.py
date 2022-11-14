@@ -6,7 +6,8 @@ from dao.search_click_dao import search_click_dao
 
 
 def search_click_service(url):
-    url = "https://www.rottentomatoes.com/m/abcd_any_body_can_dance"
+    # url = "https://www.rottentomatoes.com/m/abcd_any_body_can_dance"
+    print(url)
     page = requests.get(url)
     print(page)
     soup = BeautifulSoup(page.text, 'html.parser')
@@ -23,10 +24,17 @@ def search_click_service(url):
     title = header.find('h1', class_="scoreboard__title").text  # title of movie
     # print(header)
     info = header.find('p', class_="scoreboard__info").text.split(',')
-    year = info[0]
-    zoner = info[1]
-    time = info[2]
-    list['title']=title
+    length = len(info)
+    year = ""
+    zoner = ""
+    time = ""
+    if length > 0:
+        year = info[0]
+    if length > 1:
+        zoner = info[1]
+    if length > 2:
+        time = info[2]
+    list['title'] = title
     list['year'] = year
     list['zoner'] = zoner
     list['time'] = time
@@ -37,14 +45,11 @@ def search_click_service(url):
     print(movie_info)  # about movie
     list['info'] = movie_info
     meta_data = scrap_data_movie.find('ul', class_='info').find_all('li')
-
+    # print(meta_data)
     for r in meta_data:
         key = r.find('div', class_='meta-label').text.strip()
         value = r.find('div', class_='meta-value').text.strip().replace("\n", '').replace(" ", '')
-        list[key.replace(":","").replace(" ","")] = value
+        list[key.replace(":", "").replace(" ", "")] = value
         # print(key,value)
     # print(list)
     return json.loads(json.dumps(list))
-
-
-
