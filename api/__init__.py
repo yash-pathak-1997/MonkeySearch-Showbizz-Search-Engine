@@ -7,3 +7,4 @@ from api import search_click_api
 from api import search_enter_api
 from api import top_250_api
 from api import coming_soon_api
+from api import user_fav
