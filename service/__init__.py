@@ -6,3 +6,4 @@ from service import coming_soon_service
 from service import recently_viewed_service
 from service import user_fav_service
 from service import admin_data_service
+from service import multimedia_search_service

@@ -6,3 +6,4 @@ from dao import top_250_dao
 from dao import recently_viewed_dao
 from dao import user_fav_dao
 from dao import admin_data_dao
+from dao import multimedia_search_dao

@@ -39,7 +39,18 @@ def admin_data_dao():
         else:
             lang_data[lang] = 1
 
-    res = {"timewise": time_data, "genrewise": genre_data, "languagewise": lang_data}
+    final_time_data = []
+    for k, v in time_data.items():
+        final_time_data.append({"y": v, "label": k})
+
+    final_lang_data = []
+    for k, v in lang_data.items():
+        final_lang_data.append({"y": v, "label": k})
+
+    final_genre_data = []
+    for k, v in genre_data.items():
+        final_genre_data.append({"y": v, "label": k})
+
+    res = {"timewise": final_time_data, "genrewise": final_genre_data, "languagewise": final_lang_data}
 
     return res
-
