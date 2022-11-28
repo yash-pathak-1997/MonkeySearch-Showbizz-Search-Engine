@@ -11,6 +11,8 @@ def search_click_service(url, user_id):
     soup = BeautifulSoup(page.text, 'html.parser')
     scrap_data_movie = soup.find('div', id='mainColumn')
     list = dict()
+    # if scrap_data_movie:
+    # print(scrap_data_movie)
     image = scrap_data_movie.find('div', class_='thumbnail-scoreboard-wrap').find('div',
                                                                                   class_='movie-thumbnail-wrap').div.img
     print(image)

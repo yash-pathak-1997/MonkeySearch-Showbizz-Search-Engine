@@ -12,17 +12,10 @@ def user_fav_dao(user_id):
                                    "=majority")
     db = myclient.mernapp
     collection = db.SearchClick
-    print(user_id)
-#     return collection.find({
-#  "UserId" : str(user_id)
-# },{
-#    "Genre": 1
-# }
-# ).limit(1)
-    return collection.aggregate(
-        # Lets find our records
-        {"$match":{"UserId":str(user_id)}},
-
-        # Now lets group on the name counting how many grouped documents we have
-        {"$group":{"_id":"$Genre", "sum":{"$sum":1}}}
-    ).limit(1)
+    # select genre,count(*) from searchClick where userid=userid groupBy genre orderby count(*) limit 1
+    return collection.aggregate([
+        # {"$match": {"UserId":user_id}},
+        {"$match": {"UserId": user_id}},
+        {"$group": {"_id": "$Genre", "count": {"$count": { } }}},
+        {"$sort":{"count":-1}},
+        {"$limit":1}])
