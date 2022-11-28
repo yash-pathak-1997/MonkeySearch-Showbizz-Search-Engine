@@ -45,7 +45,7 @@ def top_250_service(sort_by, order):
             i =link.find('img')
             link_title.append(link_base+p.get('href'))
             img_src.append(i.get('src'))
-            print(i)
+            # print(i)
 
         data['alink'] = link_title
         data['imgsrc'] = img_src
@@ -53,6 +53,5 @@ def top_250_service(sort_by, order):
     except Exception as e:
         print(e)
 
-#
 # https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg
 # https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY67_CR1,0,45,67_AL_.jpg
