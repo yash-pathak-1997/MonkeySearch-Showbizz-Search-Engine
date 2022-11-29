@@ -5,6 +5,7 @@ import requests
 import pandas as pd
 import urllib.request
 import re
+from config import conf_obj
 
 
 def coming_soon_service(filter_data):
@@ -12,10 +13,13 @@ def coming_soon_service(filter_data):
         region = filter_data["region"]
         type_o = filter_data["type"]
         url = f"https://www.imdb.com/calendar/?ref_=rlm&region={region}&type={type_o}"
-        headers={
-            'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
+        headers = {
+            'User-Agent': conf_obj['headers']['User-Agent']
         }
-        page = requests.get(url,headers=headers)
+        print(",,,,,,,,,,,")
+        print(conf_obj['headers']['User-Agent'])
+        print(',,,,,,,,,,,,,')
+        page = requests.get(url, headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         # print(soup)
         articles = soup.find('section', class_='ipc-page-section ipc-page-section--base').find_all('article',
@@ -60,15 +64,19 @@ def coming_soon_service(filter_data):
                     video_ids = re.findall(r"watch\?v=(\S{11})", search_song_url.read().decode())
                     url = str("https://www.youtube.com/watch?v=" + video_ids[0])
 
+
                     temp["trailer_link"] = url
                 else:
                     temp["trailer_link"] = "NA"
 
-                i = i+1
+                i = i + 1
                 movies_list.append(temp)
 
             res["movies"] = movies_list
+            if len(res['movies']) > 48:
+                break
+
     except Exception as err:
         print(err)
-
+    res['movies'] = res['movies'][0:48]
     return res
