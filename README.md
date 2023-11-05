@@ -1,7 +1,7 @@
 ### Monkey Search - Retrieval (Web Scraping)
 - - -
 #### Introduction:
-#### Monkey search engine search the movies / tv series / franchise as per the keyword enter by the user, recommend the movies as per the user preferred Genre,Trending news and coming soon movies with top 250 pickups, search results can be redirected to their trailer links, Admin can also view the statistics on the data captured
+#### MonkeySearch is a comprehensive search and recommendation engine designed for movies, TV series, and franchises. It enables users to search for their favorite content based on keywords, receive genre-specific recommendations, access trending news in the entertainment world, and explore upcoming movie releases. Additionally, users can access trailer links for search results. Admin users have the privilege of viewing detailed statistics on the captured data.
 
 
 ## Tech stack used
